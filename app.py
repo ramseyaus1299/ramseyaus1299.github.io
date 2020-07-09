@@ -33,6 +33,9 @@ def before_request():
         user = [x for x in users if x.id == session['user_id']][0]
         g.user = user
         
+@app.route('/')
+def index():
+    return 'Welcome'
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
