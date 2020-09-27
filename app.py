@@ -1,12 +1,7 @@
-from flask import (
-    Flask,
-    g,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for
-)
+from flask import Flask, render_template, request, session, redirect, url_for
+from datetime import date,time, datetime
+import sqlite3 as sql
+import os
 
 class User:
     def __init__(self, id, username, password):
