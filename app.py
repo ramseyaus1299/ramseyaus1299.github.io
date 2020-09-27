@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Mar 17 15:40:29 2018
+Created on Sat Sep 27 2020
 
-@author: Kaushik
+@author: Austin Ramsey
 """
 
 from flask import Flask, render_template, request, session, redirect, url_for
@@ -12,8 +12,7 @@ import os
 # Create Database if it doesnt exist
 if not os.path.isfile('database.db'):
   conn = sql.connect('database.db')
-  conn.execute('CREATE TABLE IF NOT EXISTS Donors (Name TEXT NOT NULL, Amount INTEGER NOT NULL, Email TEXT NOT NULL, [timestamp] TIMESTAMP)')
-  conn.execute('CREATE TABLE IF NOT EXISTS Users (Name TEXT NOT NULL, Email TEXT NOT NULL, Password TEXT NOT NULL, Contact INTEGER NOT NULL)')
+  conn.execute('CREATE TABLE IF NOT EXISTS Users (FName TEXT NOT NULL, LName TEXT NOT NULL, Email TEXT NOT NULL, Password TEXT NOT NULL)')
   conn.close()
 
 app = Flask(__name__,static_url_path='/assets',
