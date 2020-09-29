@@ -12,7 +12,7 @@ import os
 # Create Database if it doesnt exist
 if not os.path.isfile('database.db'):
   conn = sql.connect('database.db')
-  conn.execute('CREATE TABLE IF NOT EXISTS Users (FName TEXT NOT NULL, LName TEXT NOT NULL, Email TEXT NOT NULL, Password TEXT NOT NULL)')
+  conn.execute('CREATE TABLE IF NOT EXISTS Users (Name TEXT NOT NULL, Email TEXT NOT NULL, Password TEXT NOT NULL)')
   conn.close()
 
 app = Flask(__name__,static_url_path='/assets',
@@ -61,7 +61,6 @@ def about_us():
 def register():
   if request.method == 'POST':
     nm = request.form['nm']
-    contact = request.form['contact']
     email = request.form['email']
     password = request.form['password']
          
@@ -76,7 +75,7 @@ def register():
       else:
         print("User not found, register new user")
         user_exists=0
-        cur.execute("INSERT INTO Users (Name,Email,Password,Contact) VALUES (?,?,?,?)",(nm,email,password,contact) )
+        cur.execute("INSERT INTO Users (Name,Email, Password) VALUES (?,?,?)",(nm,email,password) )
         
   return render_template('login.html',user_exists=user_exists, invalid = None, logged_out=None)
 
@@ -180,15 +179,11 @@ def profile():
    email = session['email']
    with sql.connect("database.db") as con:
     cur = con.cursor()
-    # Fetch details of user
-    cur.execute("SELECT Contact FROM Users WHERE Email=(?)",[(email)])
-    contact = cur.fetchall()
-    contact=contact[0][0]
 
     cur.execute("SELECT Password FROM Users WHERE Email=(?)",[(email)])
     password = cur.fetchall()
     password=password[0][0]
-   return render_template("profile.html",nm=nm,email=email,contact=contact,password=password)
+   return render_template("profile.html",nm=nm,email=email,password=password)
 
 if __name__ == '__main__':
    app.secret_key = ".."
