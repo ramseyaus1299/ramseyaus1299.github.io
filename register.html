@@ -60,7 +60,9 @@
                             <form class="register-form form-all" action="{{ url_for('register') }}" method="POST">
                                 <h4>Register:</h4>
                                 <div class="form-group">
-                                    <input class="form-control" type="text" placeholder="Full name" name="nm" required/>
+                                    <label>
+                                        <input class="form-control" type="text" placeholder="Full name" name="nm" required/>
+                                    </label>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" type="password" placeholder="Your password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
